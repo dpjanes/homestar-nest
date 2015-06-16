@@ -22,11 +22,13 @@
 
 "use strict";
 
+var path = require('path');
+
 var iotdb = require('iotdb');
 var _ = iotdb._;
 var bunyan = iotdb.bunyan;
 
-// var nest = require('nest');
+var Firebase = require('firebase')
 
 var logger = bunyan.createLogger({
     name: 'homestar-nest',
@@ -49,9 +51,6 @@ var NestBridge = function (initd, native) {
     );
     self.native = native;   // the thing that does the work - keep this name
 
-    if (self.native) {
-        self.queue = _.queue("NestBridge");
-    }
 };
 
 NestBridge.prototype = new iotdb.Bridge();
@@ -72,15 +71,34 @@ NestBridge.prototype.discover = function () {
         method: "discover"
     }, "called");
 
-    /*
-     *  This is the core bit of discovery. As you find new
-     *  thimgs, make a new NestBridge and call 'discovered'.
-     *  The first argument should be self.initd, the second
-     *  the thing that you do work with
-     */
-    var s = self._nest();
-    s.on('something', function (native) {
-        self.discovered(new NestBridge(self.initd, native));
+    self._firebase(function(error, firebase) {
+        if (error) {
+            logger.info({
+                error: _.error.message(error),
+                method: "discover",
+            }, "could not connect to Firebase/Nest");
+            return;
+        }
+
+        firebase.once('value', function(snapshot) {
+            var vd = snapshot.val();
+            var deviced = _.d.get(vd, "/devices", {});
+
+            var types = [ "smoke_co_alarms", "thermostats" ];
+            for (var ti in types) {
+                var type = types[ti];
+                var dd = _.d.get(deviced, type);
+                for (var d_id in dd) {
+                    var native = {
+                        type: type,
+                        device: dd[d_id],
+                        firebase: firebase,
+                    }
+
+                    self.discovered(new NestBridge(self.initd, native));
+                }
+            }
+        });
     });
 };
 
@@ -95,24 +113,16 @@ NestBridge.prototype.connect = function (connectd) {
 
     self._validate_connect(connectd);
 
-    self._setup_polling();
-    self.pull();
-};
+    self.native.firebase
+        .child("devices")
+        .child(self.native.type)
+        .child(self.native.device.device_id)
+        .on('value', function(snapshot) {
+            self.native.device = snapshot.val();
+            self.pulled(self.native.device);
+        });
 
-NestBridge.prototype._setup_polling = function () {
-    var self = this;
-    if (!self.initd.poll) {
-        return;
-    }
-
-    var timer = setInterval(function () {
-        if (!self.native) {
-            clearInterval(timer);
-            return;
-        }
-
-        self.pull();
-    }, self.initd.poll * 1000);
+    // self.pulled(self.native.device);
 };
 
 NestBridge.prototype._forget = function () {
@@ -160,25 +170,6 @@ NestBridge.prototype.push = function (pushd, done) {
         pushd: pushd
     }, "push");
 
-    var qitem = {
-        // if you set "id", new pushes will unqueue old pushes with the same id
-        // id: self.number, 
-        run: function () {
-            self._pushd(pushd);
-            self.queue.finished(qitem);
-            done();
-        }
-    };
-    self.queue.add(qitem);
-};
-
-/**
- *  Do the work of pushing. If you don't need queueing
- *  consider just moving this up into push
- */
-NestBridge.prototype._push = function (pushd) {
-    if (pushd.on !== undefined) {
-    }
 };
 
 /**
@@ -202,15 +193,19 @@ NestBridge.prototype.meta = function () {
         return;
     }
 
-    return {
-        "iot:thing": _.id.thing_urn.unique("Nest", self.native.uuid, self.initd.number),
-        "schema:name": self.native.name || "Nest",
-
-        // "iot:number": self.initd.number,
-        // "iot:device": _.id.thing_urn.unique("Nest", self.native.uuid),
-        // "schema:manufacturer": "",
-        // "schema:model": "",
+    var metad = {
+        "iot:thing": _.id.thing_urn.unique("Nest", self.native.device.device_id),
+        "schema:name": self.native.device.name_long || "Nest",
+        "schema:manufacturer": "https://nest.com/",
     };
+
+    if (self.native.type === "smoke_co_alarms") {
+        metad["iot:vendor/model"] = "Nest Protect";
+    } else if (self.native.type === "thermostats") {
+        metad["iot:vendor/model"] = "Nest Thermostat";
+    }
+
+    return metad;
 };
 
 /**
@@ -223,22 +218,57 @@ NestBridge.prototype.reachable = function () {
 /**
  *  See {iotdb.bridge.Bridge#configure} for documentation.
  */
-NestBridge.prototype.configure = function (app) {};
-
-/* -- internals -- */
-var __singleton;
-
-/**
- *  If you need a singleton to access the library
- */
-NestBridge.prototype._nest = function () {
+NestBridge.prototype.configure = function (app) {
     var self = this;
 
-    if (!__singleton) {
-        __singleton = nest.init();
+    self.html_root = app.html_root || "/";
+
+    // var ds = self._find_devices_to_configure();
+
+    app.use('/$', function (request, response) {
+        self._configure_root(request, response);
+    });
+
+    return "Nest";
+};
+
+NestBridge.prototype._configure_root = function (request, response) {
+    var self = this;
+
+    var template = path.join(__dirname, "templates", "root.html");
+    var templated = {
+        html_root: self.html_root,
+    };
+
+    response
+        .set('Content-Type', 'text/html')
+        .render(template, templated);
+};
+
+/* -- internals -- */
+/**
+ */
+NestBridge.prototype._firebase = function (done) {
+    var self = this;
+
+    var access_token_key = "/bridges/NestBridge/account/access_token";
+    var access_token = iotdb.keystore().get(access_token_key);
+    if (!access_token) {
+        logger.error({
+            cause: "see https://homestar.io/tools/nest",
+        }, "NestBridge not configured");
+
+        return done(new Error("NestBridge not configured"));
     }
 
-    return __singleton;
+    var firebase = new Firebase('wss://developer-api.nest.com');
+    firebase.authWithCustomToken(access_token, function(error) {
+        if (error) {
+            return done(error);
+        }
+
+        return done(null, firebase);
+    });
 };
 
 /*
