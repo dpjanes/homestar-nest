@@ -121,8 +121,6 @@ NestBridge.prototype.connect = function (connectd) {
             self.native.device = snapshot.val();
             self.pulled(self.native.device);
         });
-
-    // self.pulled(self.native.device);
 };
 
 NestBridge.prototype._forget = function () {
@@ -200,9 +198,9 @@ NestBridge.prototype.meta = function () {
     };
 
     if (self.native.type === "smoke_co_alarms") {
-        metad["iot:vendor/model"] = "Nest Protect";
+        metad["iot:vendor.model"] = "Nest Protect";
     } else if (self.native.type === "thermostats") {
-        metad["iot:vendor/model"] = "Nest Thermostat";
+        metad["iot:vendor.model"] = "Nest Thermostat";
     }
 
     return metad;

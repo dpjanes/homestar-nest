@@ -10,7 +10,7 @@ var iotdb = require('iotdb');
 var iot = iotdb.iot();
 
 var things = iot.connect('NestProtect');
-things.on("state", function(thing) {
+things.on("istate", function(thing) {
     console.log("+", "state", thing.thing_id(), "\n ", thing.state("istate"));
 });
 things.on("meta", function(thing) {

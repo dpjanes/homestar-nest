@@ -17,4 +17,7 @@ exports.Model = iotdb.make_model('NestProtect')
 exports.binding = {
     bridge: require('../NestBridge').Bridge,
     model: exports.Model,
+    matchd: {
+        'iot:vendor.model': 'Nest Protect',
+    },
 };
