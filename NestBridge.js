@@ -92,7 +92,7 @@ NestBridge.prototype.discover = function () {
                     var native = {
                         type: type,
                         device: dd[d_id],
-                        firebase: firebase,
+                        firebase: firebase.child("devices").child(type).child(d_id),
                     }
 
                     self.discovered(new NestBridge(self.initd, native));
@@ -114,9 +114,11 @@ NestBridge.prototype.connect = function (connectd) {
     self._validate_connect(connectd);
 
     self.native.firebase
+        /*
         .child("devices")
         .child(self.native.type)
         .child(self.native.device.device_id)
+        */
         .on('value', function(snapshot) {
             self.native.device = snapshot.val();
             self.pulled(self.native.device);
@@ -168,6 +170,10 @@ NestBridge.prototype.push = function (pushd, done) {
         pushd: pushd
     }, "push");
 
+    self.native.firebase.update(pushd, function() {
+        // self.native.device.update(pushd)
+        done();
+    });
 };
 
 /**

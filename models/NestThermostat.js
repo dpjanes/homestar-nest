@@ -13,8 +13,8 @@ exports.Model = iotdb.make_model('NestThermostat')
     .name("NestThermostat")
     .description("Nest Thermostat")
     .io("target_temperature_c", iotdb.number.temperature.celsius)
-    .io("ambient_temperature_c", iotdb.sensor.number.temperature.celsius)
-    .io("humidity", iotdb.sensor.number.humidity)
+    .i("ambient_temperature_c", iotdb.sensor.number.temperature.celsius)
+    .i("humidity", iotdb.sensor.number.humidity)
     .make();
 
 exports.binding = {

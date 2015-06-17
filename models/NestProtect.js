@@ -12,6 +12,9 @@ exports.Model = iotdb.make_model('NestProtect')
     .facet(":security")
     .name("NestProtect")
     .description("Nest Protect")
+    .i("co_alarm_state", iotdb.sensor.string.chemical.co2)
+    .i("smoke_alarm_state", iotdb.sensor.string.smoke)
+    .i("battery_health", iotdb.sensor.string.battery)
     .make();
 
 exports.binding = {

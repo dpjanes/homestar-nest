@@ -20,4 +20,9 @@ things.on("thing", function(thing) {
     console.log("+", "discovered\n ", thing.thing_id(), "\n ", thing.state("meta"));
 });
 
+var count = 0;
+setInterval(function() {
+    things.set(":temperature", 18 + count++ % 5);
+}, 5 * 1000);
+
 
