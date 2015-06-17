@@ -16,7 +16,7 @@ nest.discovered = function (bridge) {
     bridge.connect({});
     /*
     bridge.push({
-        volume: 0.5,
+        target_temperature_c: 0.5,
     }, function() {});
     */
 };
