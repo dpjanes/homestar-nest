@@ -1,0 +1,37 @@
+{% extends "template" %}
+{% block content %}
+<h1>Nest API</h1>
+{% if ok %}
+<p>
+Updated! Restart Home☆Star and you should be able
+to access your Nest devices.
+</p>
+{% else %}
+<p>
+This will allow Home☆Star to access your Nest devices
+</p>
+<div class="col-md-6" style="margin-bottom: 40px">
+    <ol>
+        <li>
+            Click on this link to 
+            <a href="https://homestar.io/tools/nest" target="_blank">create an API Key</a>.
+        </li>
+
+        <li>
+            <p>
+            Enter it here:
+            </p>
+            <form class="form-signin" role="form" method="post" >
+                {#
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                #}
+                <div class="form-group">
+                    <input name="access_token" type="text" id="id_token" class="form-control" />
+                </div>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
+        </li>
+    </ol>
+</div>
+{% endif %}
+{% endblock %}

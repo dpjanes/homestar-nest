@@ -244,6 +244,16 @@ NestBridge.prototype._configure_root = function (request, response) {
         html_root: self.html_root,
     };
 
+    if (request.method === "POST") {
+        var access_token = request.body.access_token;
+        if (access_token && access_token.length) {
+            var access_token_key = "/bridges/NestBridge/account/access_token";
+            iotdb.keystore().save(access_token_key, access_token);
+
+            templated.ok = true;
+        }
+    }
+
     response
         .set('Content-Type', 'text/html')
         .render(template, templated);

@@ -34,6 +34,7 @@ echo "=================="
         README.md LICENSE \
         homestar.json package.json \
         NestBridge.js index.js \
+        templates/*.html \
         models/*.js \
         |
     ( cd "${NPM_DST}" && tar xvf - )
