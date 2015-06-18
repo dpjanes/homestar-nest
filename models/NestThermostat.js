@@ -12,9 +12,9 @@ exports.Model = iotdb.make_model('NestThermostat')
     .facet(":hvac.thermostat")
     .name("NestThermostat")
     .description("Nest Thermostat")
-    .io("target_temperature_c", iotdb.number.temperature.celsius)
-    .i("ambient_temperature_c", iotdb.sensor.number.temperature.celsius)
-    .i("humidity", iotdb.sensor.number.humidity)
+    .io("target_temperature_c", ( iotdb.number.temperature.celsius ).name("target temperature"))
+    .i("ambient_temperature_c", ( iotdb.sensor.number.temperature.celsius ).name("ambient temperature"))
+    .i("humidity", iotdb.sensor.number.humidity.unit("iot-unit:math.fraction.percent"))
     .make();
 
 exports.binding = {
