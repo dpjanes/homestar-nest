@@ -72,6 +72,7 @@ NestBridge.prototype.discover = function () {
     }, "called");
 
     self._firebase(function(error, firebase) {
+        console.log("HERE:XXX.2");
         if (error) {
             logger.info({
                 error: _.error.message(error),
@@ -95,7 +96,7 @@ NestBridge.prototype.discover = function () {
                         firebase: firebase.child("devices").child(type).child(d_id),
                     }
 
-                    self.discovered(new NestBridge(self.initd, native));
+                    self.discovered(new NestBridge(_.defaults({}, self.initd), native));
                 }
             }
         });
@@ -260,10 +261,20 @@ NestBridge.prototype._configure_root = function (request, response) {
 };
 
 /* -- internals -- */
+
+var _firebase = null;
+var _pending_firebase = null;
+var _pending_dones = [];
+
+
 /**
  */
 NestBridge.prototype._firebase = function (done) {
     var self = this;
+
+    if (_firebase) {
+        return done(null, _firebase);
+    }
 
     var access_token_key = "/bridges/NestBridge/account/access_token";
     var access_token = iotdb.keystore().get(access_token_key);
@@ -275,13 +286,36 @@ NestBridge.prototype._firebase = function (done) {
         return done(new Error("NestBridge not configured"));
     }
 
-    var firebase = new Firebase('wss://developer-api.nest.com');
-    firebase.authWithCustomToken(access_token, function(error) {
-        if (error) {
-            return done(error);
-        }
+    if (_pending_dones !== null) {
+        _pending_dones.push(done);
+    }
 
-        return done(null, firebase);
+    if (_pending_firebase) {
+        return;
+    }
+
+    _pending_firebase = new Firebase('wss://developer-api.nest.com');
+    _pending_firebase.authWithCustomToken(access_token, function(error) {
+        if (error) {
+            _pending_firebase = null;
+
+            var dones = _pending_dones;
+            _pending_dones = [];
+
+            dones.map(function(done) {
+                done(error);
+            });
+        } else {
+            _firebase = _pending_firebase;
+            _pending_firebase = null;
+
+            var dones = _pending_dones;
+            _pending_dones = null;
+
+            dones.map(function(done) {
+                done(null, _firebase);
+            });
+        }
     });
 };
 

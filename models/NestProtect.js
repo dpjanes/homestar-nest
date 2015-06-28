@@ -6,6 +6,8 @@
  *  2015-06-16
  */
 
+"use strict";
+
 var iotdb = require("iotdb");
 
 exports.Model = iotdb.make_model('NestProtect')
@@ -22,5 +24,13 @@ exports.binding = {
     model: exports.Model,
     matchd: {
         'iot:vendor.model': 'Nest Protect',
+    },
+    metad: {
+        'iot:facet': [ 
+            'iot-facet:alarm',
+            'iot-facet:alarm.chemical',
+            'iot-facet:alarm.chemical.co2',
+            'iot-facet:alarm.chemical.smoke',
+        ],
     },
 };
