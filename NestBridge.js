@@ -72,7 +72,6 @@ NestBridge.prototype.discover = function () {
     }, "called");
 
     self._firebase(function(error, firebase) {
-        console.log("HERE:XXX.2");
         if (error) {
             logger.info({
                 error: _.error.message(error),
