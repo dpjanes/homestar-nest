@@ -198,7 +198,7 @@ NestBridge.prototype.meta = function () {
     }
 
     var metad = {
-        "iot:thing": _.id.thing_urn.unique("Nest", self.native.device.device_id),
+        "iot:thing-id": _.id.thing_urn.unique("Nest", self.native.device.device_id),
         "schema:name": self.native.device.name_long || "Nest",
         "schema:manufacturer": "https://nest.com/",
     };
