@@ -7,6 +7,8 @@ See <a href="samples/">the samples</a> for details how to add to your project,
 particularly <code>connect.js</code> for standalone
 and <code>iotdb\*.js</code> for HomeStar/IOTDB.
 
+Support for Nest Cam coming soon.
+
 # Installation
 
 Install Home☆Star first. 
@@ -18,11 +20,11 @@ Then
 
 # API Keys
 
-This requires an API Key from Nest. This is easy to
+This requires an API Key from Nest. This is easy to do: [start here](https://developer.echonest.com/account/register).
 
 # Quick Start
 
-Set the temperature to 20 celcius
+Set the temperature to 20 celsius
 
 	$ npm install -g homestar ## with 'sudo' if error
 	$ homestar setup
@@ -30,9 +32,8 @@ Set the temperature to 20 celcius
     $ homestar configure homestar-nest ## or add API keys manually
 	$ node
 	>>> iotdb = require('iotdb')
-	>>> iot = iotdb.iot()
-	>>> things = iot.connect("NestThermostat")
-	>>> things.set(":temperatur", 20)
+	>>> things = iotdb.connect("NestThermostat")
+	>>> things.set(":temperature", 20)
 
 # Configuration
 
