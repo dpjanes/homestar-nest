@@ -20,7 +20,7 @@ Then
 
 # API Keys
 
-This requires an API Key from Nest. This is easy to do: [start here](https://developer.echonest.com/account/register).
+This requires an API Key from Nest. This is easy to do: [start here](https://developer.nest.com/products).
 
 # Quick Start
 
