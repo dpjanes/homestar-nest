@@ -84,7 +84,7 @@ NestBridge.prototype.discover = function () {
             var vd = snapshot.val();
             var deviced = _.d.get(vd, "/devices", {});
 
-            var types = [ "smoke_co_alarms", "thermostats" ];
+            var types = [ "smoke_co_alarms", "thermostats", "cameras", ];
             for (var ti in types) {
                 var type = types[ti];
                 var dd = _.d.get(deviced, type);
@@ -113,6 +113,7 @@ NestBridge.prototype.connect = function (connectd) {
 
     self._validate_connect(connectd);
 
+    // console.log("HERE:XXX.1");
     self.native.firebase
         /*
         .child("devices")
@@ -121,6 +122,18 @@ NestBridge.prototype.connect = function (connectd) {
         */
         .on('value', function(snapshot) {
             self.native.device = snapshot.val();
+
+            /*
+             *  This is a hack because model._update_istate
+             *  does not support nested attributes at 
+             *  this time. At some point in the future
+             *  this needs to be revisited
+             */
+            if (self.native.device.last_event) {
+                _.defaults(self.native.device, self.native.device.last_event);
+            }
+
+            // console.log("HERE:XXX.2", self.native.device);
             self.pulled(self.native.device);
         });
 };
@@ -207,6 +220,13 @@ NestBridge.prototype.meta = function () {
         metad["iot:vendor.model"] = "Nest Protect";
     } else if (self.native.type === "thermostats") {
         metad["iot:vendor.model"] = "Nest Thermostat";
+    } else if (self.native.type === "cameras") {
+        metad["iot:vendor.model"] = "Nest Cam";
+    } else {
+        logger.info({
+            type: self.native.type,
+            name: self.native.device && self.native.device.name_long,
+        }, "unknown type");
     }
 
     return metad;

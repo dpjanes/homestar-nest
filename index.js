@@ -26,6 +26,7 @@ exports.Bridge = require('./NestBridge').Bridge;
 exports.bindings = [
     require('./models/NestProtect').binding,
     require('./models/NestThermostat').binding,
+    require('./models/NestCam').binding,
 ];
 
 exports.iotdb = require("iotdb");
