@@ -45,7 +45,8 @@ If you don't have a Nest, they provide a very nice simulator
 
     https://developer.nest.com/documentation/cloud/home-simulator
 
-# NestThermostat
+# Models
+## NestThermostat
 
 Control Nest Thermostat
 
@@ -61,7 +62,7 @@ Functionality:
         humidity: 30
     }
 
-# NestProtect
+## NestProtect
 
 Read values from Nest Protect
 
@@ -71,7 +72,7 @@ Read values from Nest Protect
         battery_health: 'ok'
     }
 
-# NestCam
+## NestCam
 
 Read values from Nest Camera. In particular, it will change state
 when new "events" happen.
