@@ -52,7 +52,7 @@ Control Nest Thermostat
 
 Functionality:
 
-* discover Nest Thermostats 
+* discover Nest Thermostats
 * get target temperature, actual temperature and humidity
 * set target temperature
 
