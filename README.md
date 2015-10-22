@@ -18,10 +18,6 @@ Then
 
     $ homestar install homestar-nest
 
-# API Keys
-
-This requires an API Key from Nest. This is easy to do: [start here](https://developer.nest.com/products).
-
 # Quick Start
 
 Set the temperature to 20 celsius
@@ -73,4 +69,16 @@ Read values from Nest Protect
         co_alarm_state: 'warning',
         smoke_alarm_state: 'ok',
         battery_health: 'ok'
+    }
+
+# NestCam
+
+Read values from Nest Camera. In particular, it will change state
+when new "events" happen.
+
+    {
+        animated_image_url: 'https://developer.nest.com/...',
+        image_url: 'https://developer.nest.com/simulator/...',
+        start_time: '2015-10-22T15:12:14.140Z',
+        end_time: '2015-10-22T15:12:15.161Z'
     }
