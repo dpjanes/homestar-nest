@@ -1,0 +1,25 @@
+CREATE MODEL NestThermostat WITH
+    schema:name = "NestThermostat",
+    schema:description = "Nest Thermostat",
+    iot:facet = iot-facet:hvac,
+    iot:facet = iot-facet:hvac.thermostat
+ATTRIBUTE target_temperature_c WITH
+    schema:name = "target temperature",
+    iot:purpose = iot-purpose:temperature,
+    iot:type = iot:type.integer,
+    iot:unit = iot-unit:temperature.si.celsius,
+    iot:minimum = 5,
+    iot:maximum = 30
+ATTRIBUTE ambient_temperature_c WITH
+    schema:name = "ambient temperature",
+    iot:purpose = iot-purpose:sensor.temperature,
+    iot:type = iot:type.number,
+    iot:unit = iot-unit:temperature.si.celsius,
+    iot:read = true
+ATTRIBUTE humidity WITH
+    schema:name = "humidity",
+    iot:purpose = iot-purpose:sensor.humidity,
+    iot:type = iot:type.number,
+    iot:unit = iot-unit:math.fraction.percent,
+    iot:read = true
+;

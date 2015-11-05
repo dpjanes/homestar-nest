@@ -1,0 +1,29 @@
+CREATE MODEL NestCam WITH
+    schema:name = "NestCam",
+    schema:description = "Nest Camera",
+    iot:facet = iot-facet:security
+ATTRIBUTE animated_image_url WITH
+    schema:name = "image",
+    iot:purpose = iot-purpose:iri.image,
+    iot:type = iot:type.string,
+    iot:format = iot:format.iri,
+    iot:read = true
+ATTRIBUTE image_url WITH
+    schema:name = "image",
+    iot:purpose = iot-purpose:iri.image,
+    iot:type = iot:type.string,
+    iot:format = iot:format.iri,
+    iot:read = true
+ATTRIBUTE start_time WITH
+    schema:name = "when-start",
+    iot:purpose = iot-purpose:when-start,
+    iot:type = iot:type.string,
+    iot:format = iot:format.datetime,
+    iot:read = true
+ATTRIBUTE end_time WITH
+    schema:name = "when-end",
+    iot:purpose = iot-purpose:when-end,
+    iot:type = iot:type.string,
+    iot:format = iot:format.datetime,
+    iot:read = true
+;

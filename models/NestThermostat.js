@@ -10,23 +10,9 @@
 
 var iotdb = require("iotdb");
 
-exports.Model = iotdb.make_model('NestThermostat')
-    .facet(":hvac.thermostat")
-    .name("NestThermostat")
-    .description("Nest Thermostat")
-    .io("target_temperature_c", 
-        ( iotdb.integer.temperature.celsius )
-            .name("target temperature")
-            .minimum(5)
-            .maximum(30)
-    )
-    .i("ambient_temperature_c", ( iotdb.sensor.number.temperature.celsius ).name("ambient temperature"))
-    .i("humidity", iotdb.sensor.number.humidity.unit("iot-unit:math.fraction.percent"))
-    .make();
-
 exports.binding = {
-    bridge: require('../NestBridge').Bridge,
-    model: exports.Model,
+    bridge: require('../NestBridge.js').Bridge,
+    model: require('./NestThermostat.json'),
     matchd: {
         'iot:vendor.model': 'Nest Thermostat',
     },
