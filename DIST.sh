@@ -35,7 +35,7 @@ echo "=================="
         homestar.json package.json \
         NestBridge.js index.js \
         templates/*.html \
-        models/*.js \
+        models/*.js models/*.json \
         |
     ( cd "${NPM_DST}" && tar xvf - )
 
