@@ -9,17 +9,22 @@ ATTRIBUTE target_temperature_c WITH
     iot:type = iot:type.integer,
     iot:unit = iot-unit:temperature.si.celsius,
     iot:minimum = 5,
-    iot:maximum = 30
+    iot:maximum = 30,
+    iot:actuator = true,    -- kinda
+    iot:write = true,
+    iot:read = true
 ATTRIBUTE ambient_temperature_c WITH
     schema:name = "ambient temperature",
-    iot:purpose = iot-purpose:sensor.temperature,
+    iot:purpose = iot-purpose:temperature,
     iot:type = iot:type.number,
     iot:unit = iot-unit:temperature.si.celsius,
+    iot:sensor = true,
     iot:read = true
 ATTRIBUTE humidity WITH
     schema:name = "humidity",
-    iot:purpose = iot-purpose:sensor.humidity,
+    iot:purpose = iot-purpose:humidity,
     iot:type = iot:type.number,
     iot:unit = iot-unit:math.fraction.percent,
+    iot:sensor = true,
     iot:read = true
 ;

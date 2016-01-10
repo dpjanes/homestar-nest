@@ -3,18 +3,23 @@ CREATE MODEL NestProtect WITH
     schema:description = "Nest Protect",
     iot:facet = iot-facet:security
 ATTRIBUTE co_alarm_state WITH
-    schema:name = "carbon-dioxide",
-    iot:purpose = iot-purpose:sensor.chemical.carbon-dioxide,
+    schema:name = "carbon-dioxide alarm",
+    iot:purpose = iot-purpose:alarm,
+    iot:what = iot-purpose:chemical.CO2,
     iot:type = iot:type.string,
+    iot:sensor = true,
     iot:read = true
 ATTRIBUTE smoke_alarm_state WITH
-    schema:name = "smoke",
-    iot:purpose = iot-purpose:sensor.smoke,
+    schema:name = "smoke alarm",
+    iot:purpose = iot-purpose:sensor,
+    iot:what = iot-purpose:what.smoke,
     iot:type = iot:type.string,
+    iot:sensor = true,
     iot:read = true
 ATTRIBUTE battery_health WITH
     schema:name = "battery",
-    iot:purpose = iot-purpose:sensor.battery,
+    iot:purpose = iot-purpose:battery,
     iot:type = iot:type.string,
+    iot:sensor = true,
     iot:read = true
 ;

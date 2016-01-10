@@ -14,6 +14,10 @@
       "@id": "https://iotdb.org/pub/iot#purpose",
       "@type": "@id"
     },
+    "iot:what": {
+      "@id": "https://iotdb.org/pub/iot#what",
+      "@type": "@id"
+    },
     "iot:type": {
       "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
@@ -30,26 +34,37 @@
     {
       "@type": "iot:Attribute",
       "@id": "#co_alarm_state",
-      "schema:name": "carbon-dioxide",
-      "iot:purpose": "iot-purpose:sensor.chemical.carbon-dioxide",
+      "schema:name": "carbon-dioxide alarm",
+      "iot:purpose": "iot-purpose:alarm",
+      "iot:what": "iot-purpose:chemical.CO2",
       "iot:type": "iot:type.string",
-      "iot:read": true
+      "iot:sensor": true,
+      "iot:read": true,
+      "iot:write": false,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
       "@id": "#smoke_alarm_state",
-      "schema:name": "smoke",
-      "iot:purpose": "iot-purpose:sensor.smoke",
+      "schema:name": "smoke alarm",
+      "iot:purpose": "iot-purpose:sensor",
+      "iot:what": "iot-purpose:what.smoke",
       "iot:type": "iot:type.string",
-      "iot:read": true
+      "iot:sensor": true,
+      "iot:read": true,
+      "iot:write": false,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
       "@id": "#battery_health",
       "schema:name": "battery",
-      "iot:purpose": "iot-purpose:sensor.battery",
+      "iot:purpose": "iot-purpose:battery",
       "iot:type": "iot:type.string",
-      "iot:read": true
+      "iot:sensor": true,
+      "iot:read": true,
+      "iot:write": false,
+      "iot:actuator": false
     }
   ]
 }

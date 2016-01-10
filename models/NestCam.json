@@ -38,7 +38,10 @@
       "iot:purpose": "iot-purpose:iri.image",
       "iot:type": "iot:type.string",
       "iot:format": "iot:format.iri",
-      "iot:read": true
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
@@ -47,7 +50,10 @@
       "iot:purpose": "iot-purpose:iri.image",
       "iot:type": "iot:type.string",
       "iot:format": "iot:format.iri",
-      "iot:read": true
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
@@ -56,7 +62,10 @@
       "iot:purpose": "iot-purpose:when-start",
       "iot:type": "iot:type.string",
       "iot:format": "iot:format.datetime",
-      "iot:read": true
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
@@ -65,7 +74,10 @@
       "iot:purpose": "iot-purpose:when-end",
       "iot:type": "iot:type.string",
       "iot:format": "iot:format.datetime",
-      "iot:read": true
+      "iot:read": true,
+      "iot:write": false,
+      "iot:sensor": true,
+      "iot:actuator": false
     }
   ]
 }

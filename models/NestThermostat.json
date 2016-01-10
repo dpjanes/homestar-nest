@@ -42,26 +42,34 @@
       "iot:unit": "iot-unit:temperature.si.celsius",
       "iot:minimum": 5,
       "iot:maximum": 30,
+      "iot:actuator": true,
+      "iot:write": true,
       "iot:read": true,
-      "iot:write": true
+      "iot:sensor": false
     },
     {
       "@type": "iot:Attribute",
       "@id": "#ambient_temperature_c",
       "schema:name": "ambient temperature",
-      "iot:purpose": "iot-purpose:sensor.temperature",
+      "iot:purpose": "iot-purpose:temperature",
       "iot:type": "iot:type.number",
       "iot:unit": "iot-unit:temperature.si.celsius",
-      "iot:read": true
+      "iot:sensor": true,
+      "iot:read": true,
+      "iot:write": false,
+      "iot:actuator": false
     },
     {
       "@type": "iot:Attribute",
       "@id": "#humidity",
       "schema:name": "humidity",
-      "iot:purpose": "iot-purpose:sensor.humidity",
+      "iot:purpose": "iot-purpose:humidity",
       "iot:type": "iot:type.number",
       "iot:unit": "iot-unit:math.fraction.percent",
-      "iot:read": true
+      "iot:sensor": true,
+      "iot:read": true,
+      "iot:write": false,
+      "iot:actuator": false
     }
   ]
 }
