@@ -26,11 +26,10 @@ var path = require('path');
 
 var iotdb = require('iotdb');
 var _ = iotdb._;
-var bunyan = iotdb.bunyan;
 
 var Firebase = require('firebase')
 
-var logger = bunyan.createLogger({
+var logger = iotdb.logger({
     name: 'homestar-nest',
     module: 'NestBridge',
 });
