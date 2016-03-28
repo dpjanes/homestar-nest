@@ -1,8 +1,8 @@
 CREATE MODEL NestThermostat WITH
     schema:name = "NestThermostat",
     schema:description = "Nest Thermostat",
-    iot:facet = iot-facet:hvac,
-    iot:facet = iot-facet:hvac.thermostat
+    iot:facet = iot-facet:climate,
+    iot:facet = iot-facet:climate.control
 ATTRIBUTE target_temperature_c WITH
     schema:name = "target temperature",
     iot:purpose = iot-purpose:temperature,
