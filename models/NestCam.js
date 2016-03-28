@@ -12,7 +12,7 @@ var iotdb = require("iotdb");
 
 exports.binding = {
     bridge: require('../NestBridge.js').Bridge,
-    model: require('./NestCam.json'),
+    model: require('./nest-cam.json'),
     matchd: {
         'iot:vendor.model': 'Nest Cam',
     },

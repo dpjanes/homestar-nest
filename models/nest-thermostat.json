@@ -29,8 +29,8 @@
   "schema:name": "NestThermostat",
   "schema:description": "Nest Thermostat",
   "iot:facet": [
-    "iot-facet:hvac",
-    "iot-facet:hvac.thermostat"
+    "iot-facet:climate",
+    "iot-facet:climate.control"
   ],
   "iot:attribute": [
     {
