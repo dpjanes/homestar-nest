@@ -10,8 +10,8 @@ const iotdb = require('iotdb');
 iotdb.use("homestar-nest");
 
 const things = iotdb.connect('NestThermostat');
-things.on("state", function(thing) {
-    console.log("+", "state\n ", thing.thing_id(), "\n ", thing.state("istate"));
+things.on("istate", function(thing) {
+    console.log("+", "istate\n ", thing.thing_id(), "\n ", thing.state("istate"));
 });
 things.on("meta", function(thing) {
     console.log("+", "meta\n ", thing.thing_id(), "\n ", thing.state("meta"));

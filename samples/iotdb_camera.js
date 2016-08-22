@@ -11,7 +11,7 @@ iotdb.use("homestar-nest");
 
 const things = iotdb.connect('NestCam');
 things.on("istate", function(thing) {
-    console.log("+", "state", thing.thing_id(), "\n ", thing.state("istate"));
+    console.log("+", "istate", thing.thing_id(), "\n ", thing.state("istate"));
 });
 things.on("meta", function(thing) {
     console.log("+", "meta", thing.thing_id(), "\n ", thing.state("meta"));
