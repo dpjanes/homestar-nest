@@ -9,43 +9,29 @@ See <a href="samples/">the samples</a> for details how to add to your project,
 particularly <code>connect.js</code> for standalone
 and <code>iotdb\*.js</code> for HomeStar/IOTDB.
 
-# Installation
+# Installation and Configuration
 
-Install Home☆Star first. 
-See: https://github.com/dpjanes/iotdb-homestar#installation
+* [Read this first](https://github.com/dpjanes/node-iotdb/blob/master/docs/install.md)
+* [Read about installing Home☆Star](https://github.com/dpjanes/node-iotdb/blob/master/docs/homestar.md) 
 
-Then
-
-    $ homestar install homestar-nest
-    $ homestar configure homestar-nest ## or add API keys manually
-
-# Quick Start
-
-Install
-
-	$ npm install -g homestar ## with 'sudo' if error
-	$ homestar setup
-	$ homestar install homestar-nest
-
-Set the temperature to 20 celsius
-
-	const iotdb = require('iotdb')
-    iotdb.use("homestar-nest")
-	iotdb.connect("NestThermostat").set(":temperature", 20)
-
-# Configuration
-
-Run
-
+    $ npm install -g homestar    ## may require sudo
+    $ homestar setup
+    $ npm install homestar-nest
     $ homestar configure homestar-nest
 
-Or just go to this page and follow the instructions
+You'll need the instructions on this page to complete configuratio
 
     https://homestar.io/tools/nest
 
 If you don't have a Nest, they provide a very nice simulator
 
     https://developer.nest.com/documentation/cloud/home-simulator
+
+# Use
+
+	const iotdb = require('iotdb')
+    iotdb.use("homestar-nest")
+	iotdb.connect("NestThermostat").set(":temperature", 20)
 
 # Models
 ## NestThermostat
