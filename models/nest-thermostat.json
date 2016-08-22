@@ -3,13 +3,7 @@
     "@base": "file:///nest-thermostat",
     "@vocab": "file:///nest-thermostat#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
     "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
-    "iot-facet": "https://iotdb.org/pub/iot-facet#",
-    "iot:facet": {
-      "@id": "https://iotdb.org/pub/iot#facet",
-      "@type": "@id"
-    },
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
       "@type": "@id"
@@ -22,54 +16,61 @@
     "iot:unit": {
       "@id": "https://iotdb.org/pub/iot#unit",
       "@type": "@id"
+    },
+    "schema": "http://schema.org/",
+    "iot-facet": "https://iotdb.org/pub/iot-facet#",
+    "iot:facet": {
+      "@id": "https://iotdb.org/pub/iot#facet",
+      "@type": "@id"
     }
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "NestThermostat",
-  "schema:description": "Nest Thermostat",
+  "iot:attribute": [
+    {
+      "@id": "#target_temperature_c",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
+      "iot:maximum": 30,
+      "iot:minimum": 5,
+      "iot:purpose": "iot-purpose:temperature",
+      "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.integer",
+      "iot:unit": "iot-unit:temperature.si.celsius",
+      "iot:write": false,
+      "schema:name": "target temperature"
+    },
+    {
+      "@id": "#ambient_temperature_c",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
+      "iot:purpose": "iot-purpose:temperature",
+      "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.number",
+      "iot:unit": "iot-unit:temperature.si.celsius",
+      "iot:write": true,
+      "schema:name": "ambient temperature"
+    },
+    {
+      "@id": "#humidity",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
+      "iot:purpose": "iot-purpose:humidity",
+      "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.number",
+      "iot:unit": "iot-unit:math.fraction.percent",
+      "iot:write": true,
+      "schema:name": "humidity"
+    }
+  ],
   "iot:facet": [
     "iot-facet:climate",
     "iot-facet:climate.control"
   ],
-  "iot:attribute": [
-    {
-      "@type": "iot:Attribute",
-      "@id": "#target_temperature_c",
-      "schema:name": "target temperature",
-      "iot:purpose": "iot-purpose:temperature",
-      "iot:type": "iot:type.integer",
-      "iot:unit": "iot-unit:temperature.si.celsius",
-      "iot:minimum": 5,
-      "iot:maximum": 30,
-      "iot:actuator": true,
-      "iot:write": true,
-      "iot:read": true,
-      "iot:sensor": false
-    },
-    {
-      "@type": "iot:Attribute",
-      "@id": "#ambient_temperature_c",
-      "schema:name": "ambient temperature",
-      "iot:purpose": "iot-purpose:temperature",
-      "iot:type": "iot:type.number",
-      "iot:unit": "iot-unit:temperature.si.celsius",
-      "iot:sensor": true,
-      "iot:read": true,
-      "iot:write": false,
-      "iot:actuator": false
-    },
-    {
-      "@type": "iot:Attribute",
-      "@id": "#humidity",
-      "schema:name": "humidity",
-      "iot:purpose": "iot-purpose:humidity",
-      "iot:type": "iot:type.number",
-      "iot:unit": "iot-unit:math.fraction.percent",
-      "iot:sensor": true,
-      "iot:read": true,
-      "iot:write": false,
-      "iot:actuator": false
-    }
-  ]
+  "iot:model-id": "nest-thermostat",
+  "schema:description": "Nest Thermostat",
+  "schema:name": "NestThermostat"
 }

@@ -1,5 +1,5 @@
 # homestar-nest
-IOTDB / HomeStar Controller for Nest Devices
+[IOTDB](https://github.com/dpjanes/node-iotdb) Bridge for Nest Devices
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
@@ -20,16 +20,18 @@ Then
 
 # Quick Start
 
-Set the temperature to 20 celsius
+Install
 
 	$ npm install -g homestar ## with 'sudo' if error
 	$ homestar setup
 	$ homestar install homestar-nest
     $ homestar configure homestar-nest ## or add API keys manually
-	$ node
-	>>> iotdb = require('iotdb')
-	>>> things = iotdb.connect("NestThermostat")
-	>>> things.set(":temperature", 20)
+
+Set the temperature to 20 celsius
+
+	const iotdb = require('iotdb')
+    iotdb.use("homestar-nest")
+	iotdb.connect("NestThermostat").set(":temperature", 20)
 
 # Configuration
 

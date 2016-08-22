@@ -3,13 +3,11 @@
     "@base": "file:///nest-cam",
     "@vocab": "file:///nest-cam#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
-    "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
-    "iot-facet": "https://iotdb.org/pub/iot-facet#",
-    "iot:facet": {
-      "@id": "https://iotdb.org/pub/iot#facet",
+    "iot:format": {
+      "@id": "https://iotdb.org/pub/iot#format",
       "@type": "@id"
     },
+    "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
       "@type": "@id"
@@ -18,66 +16,67 @@
       "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
     },
-    "iot:format": {
-      "@id": "https://iotdb.org/pub/iot#format",
+    "schema": "http://schema.org/",
+    "iot-facet": "https://iotdb.org/pub/iot-facet#",
+    "iot:facet": {
+      "@id": "https://iotdb.org/pub/iot#facet",
       "@type": "@id"
     }
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "NestCam",
-  "schema:description": "Nest Camera",
-  "iot:facet": [
-    "iot-facet:security"
-  ],
   "iot:attribute": [
     {
-      "@type": "iot:Attribute",
       "@id": "#animated_image_url",
-      "schema:name": "image",
-      "iot:purpose": "iot-purpose:iri.image",
-      "iot:type": "iot:type.string",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:format": "iot:format.iri",
+      "iot:purpose": "iot-purpose:iri.image",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.string",
+      "iot:write": true,
+      "schema:name": "image"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#image_url",
-      "schema:name": "image",
-      "iot:purpose": "iot-purpose:iri.image",
-      "iot:type": "iot:type.string",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:format": "iot:format.iri",
+      "iot:purpose": "iot-purpose:iri.image",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.string",
+      "iot:write": true,
+      "schema:name": "image"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#start_time",
-      "schema:name": "when-start",
-      "iot:purpose": "iot-purpose:when-start",
-      "iot:type": "iot:type.string",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:format": "iot:format.datetime",
+      "iot:purpose": "iot-purpose:when-start",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.string",
+      "iot:write": true,
+      "schema:name": "when-start"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#end_time",
-      "schema:name": "when-end",
-      "iot:purpose": "iot-purpose:when-end",
-      "iot:type": "iot:type.string",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:format": "iot:format.datetime",
+      "iot:purpose": "iot-purpose:when-end",
       "iot:read": true,
-      "iot:write": false,
       "iot:sensor": true,
-      "iot:actuator": false
+      "iot:type": "iot:type.string",
+      "iot:write": true,
+      "schema:name": "when-end"
     }
-  ]
+  ],
+  "iot:facet": "iot-facet:security",
+  "iot:model-id": "nest-cam",
+  "schema:description": "Nest Camera",
+  "schema:name": "NestCam"
 }

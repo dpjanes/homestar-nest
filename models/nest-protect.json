@@ -3,68 +3,67 @@
     "@base": "file:///nest-protect",
     "@vocab": "file:///nest-protect#",
     "iot": "https://iotdb.org/pub/iot#",
-    "schema": "http://schema.org/",
     "iot-purpose": "https://iotdb.org/pub/iot-purpose#",
-    "iot-facet": "https://iotdb.org/pub/iot-facet#",
-    "iot:facet": {
-      "@id": "https://iotdb.org/pub/iot#facet",
-      "@type": "@id"
-    },
     "iot:purpose": {
       "@id": "https://iotdb.org/pub/iot#purpose",
+      "@type": "@id"
+    },
+    "iot:type": {
+      "@id": "https://iotdb.org/pub/iot#type",
       "@type": "@id"
     },
     "iot:what": {
       "@id": "https://iotdb.org/pub/iot#what",
       "@type": "@id"
     },
-    "iot:type": {
-      "@id": "https://iotdb.org/pub/iot#type",
+    "schema": "http://schema.org/",
+    "iot-facet": "https://iotdb.org/pub/iot-facet#",
+    "iot:facet": {
+      "@id": "https://iotdb.org/pub/iot#facet",
       "@type": "@id"
     }
   },
   "@id": "",
   "@type": "iot:Model",
-  "schema:name": "NestProtect",
-  "schema:description": "Nest Protect",
-  "iot:facet": [
-    "iot-facet:security"
-  ],
   "iot:attribute": [
     {
-      "@type": "iot:Attribute",
       "@id": "#co_alarm_state",
-      "schema:name": "carbon-dioxide alarm",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:alarm",
+      "iot:read": true,
+      "iot:sensor": true,
+      "iot:type": "iot:type.string",
       "iot:what": "iot-purpose:chemical.CO2",
-      "iot:type": "iot:type.string",
-      "iot:sensor": true,
-      "iot:read": true,
-      "iot:write": false,
-      "iot:actuator": false
+      "iot:write": true,
+      "schema:name": "carbon-dioxide alarm"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#smoke_alarm_state",
-      "schema:name": "smoke alarm",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:sensor",
-      "iot:what": "iot-purpose:what.smoke",
-      "iot:type": "iot:type.string",
-      "iot:sensor": true,
       "iot:read": true,
-      "iot:write": false,
-      "iot:actuator": false
+      "iot:sensor": true,
+      "iot:type": "iot:type.string",
+      "iot:what": "iot-purpose:what.smoke",
+      "iot:write": true,
+      "schema:name": "smoke alarm"
     },
     {
-      "@type": "iot:Attribute",
       "@id": "#battery_health",
-      "schema:name": "battery",
+      "@type": "iot:Attribute",
+      "iot:actuator": true,
       "iot:purpose": "iot-purpose:battery",
-      "iot:type": "iot:type.string",
-      "iot:sensor": true,
       "iot:read": true,
-      "iot:write": false,
-      "iot:actuator": false
+      "iot:sensor": true,
+      "iot:type": "iot:type.string",
+      "iot:write": true,
+      "schema:name": "battery"
     }
-  ]
+  ],
+  "iot:facet": "iot-facet:security",
+  "iot:model-id": "nest-protect",
+  "schema:description": "Nest Protect",
+  "schema:name": "NestProtect"
 }

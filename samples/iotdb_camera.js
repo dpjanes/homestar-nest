@@ -6,10 +6,10 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var iot = iotdb.iot();
+const iotdb = require('iotdb');
+iotdb.use("homestar-nest");
 
-var things = iot.connect('NestCam');
+const things = iotdb.connect('NestCam');
 things.on("istate", function(thing) {
     console.log("+", "state", thing.thing_id(), "\n ", thing.state("istate"));
 });

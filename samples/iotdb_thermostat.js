@@ -6,10 +6,10 @@
 
 "use strict";
 
-var iotdb = require('iotdb');
-var iot = iotdb.iot();
+const iotdb = require('iotdb');
+iotdb.use("homestar-nest");
 
-var things = iot.connect('NestThermostat');
+const things = iotdb.connect('NestThermostat');
 things.on("state", function(thing) {
     console.log("+", "state\n ", thing.thing_id(), "\n ", thing.state("istate"));
 });
@@ -20,7 +20,7 @@ things.on("thing", function(thing) {
     console.log("+", "discovered\n ", thing.thing_id(), "\n ", thing.state("meta"));
 });
 
-var count = 0;
+const count = 0;
 setInterval(function() {
     things.set(":temperature", 18 + count++ % 5);
 }, 5 * 1000);
