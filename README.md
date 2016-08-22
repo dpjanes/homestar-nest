@@ -3,11 +3,11 @@
 
 <img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
 
+# About
+
 See <a href="samples/">the samples</a> for details how to add to your project,
 particularly <code>connect.js</code> for standalone
 and <code>iotdb\*.js</code> for HomeStar/IOTDB.
-
-Support for Nest Cam coming soon.
 
 # Installation
 
@@ -17,6 +17,7 @@ See: https://github.com/dpjanes/iotdb-homestar#installation
 Then
 
     $ homestar install homestar-nest
+    $ homestar configure homestar-nest ## or add API keys manually
 
 # Quick Start
 
@@ -25,7 +26,6 @@ Install
 	$ npm install -g homestar ## with 'sudo' if error
 	$ homestar setup
 	$ homestar install homestar-nest
-    $ homestar configure homestar-nest ## or add API keys manually
 
 Set the temperature to 20 celsius
 
