@@ -19,7 +19,6 @@ and <code>iotdb\*.js</code> for HomeStar/IOTDB.
 Then:
 
     $ npm install -g homestar    ## may require sudo
-    $ homestar setup
     $ npm install homestar-nest
     $ homestar configure homestar-nest
 
