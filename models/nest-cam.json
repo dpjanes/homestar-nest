@@ -35,7 +35,7 @@
       "iot:read": true,
       "iot:sensor": true,
       "iot:type": "iot:type.string",
-      "iot:write": true,
+      "iot:write": false,
       "schema:name": "image"
     },
     {
@@ -47,7 +47,7 @@
       "iot:read": true,
       "iot:sensor": true,
       "iot:type": "iot:type.string",
-      "iot:write": true,
+      "iot:write": false,
       "schema:name": "image"
     },
     {
@@ -59,7 +59,7 @@
       "iot:read": true,
       "iot:sensor": true,
       "iot:type": "iot:type.string",
-      "iot:write": true,
+      "iot:write": false,
       "schema:name": "when-start"
     },
     {
@@ -71,7 +71,7 @@
       "iot:read": true,
       "iot:sensor": true,
       "iot:type": "iot:type.string",
-      "iot:write": true,
+      "iot:write": false,
       "schema:name": "when-end"
     }
   ],
