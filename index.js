@@ -28,3 +28,5 @@ exports.bindings = [
     require('./models/NestThermostat').binding,
     require('./models/NestCam').binding,
 ];
+
+exports.module_folder = __dirname;
