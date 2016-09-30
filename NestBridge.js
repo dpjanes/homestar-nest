@@ -22,14 +22,14 @@
 
 "use strict";
 
-var path = require('path');
+const path = require('path');
 
-var iotdb = require('iotdb');
-var _ = iotdb._;
+const iotdb = require('iotdb');
+const _ = iotdb._;
 
-var Firebase = require('firebase')
+const Firebase = require('./lib/firebase-node')
 
-var logger = iotdb.logger({
+const logger = iotdb.logger({
     name: 'homestar-nest',
     module: 'NestBridge',
 });
@@ -41,7 +41,7 @@ var logger = iotdb.logger({
  *  only used for instances, should be 
  */
 var NestBridge = function (initd, native) {
-    var self = this;
+    const self = this;
 
     self.initd = _.defaults(initd,
         iotdb.keystore().get("bridges/NestBridge/initd"), {
@@ -54,17 +54,13 @@ var NestBridge = function (initd, native) {
 
 NestBridge.prototype = new iotdb.Bridge();
 
-NestBridge.prototype.name = function () {
-    return "NestBridge";
-};
-
 /* --- lifecycle --- */
 
 /**
  *  See {iotdb.bridge.Bridge#discover} for documentation.
  */
 NestBridge.prototype.discover = function () {
-    var self = this;
+    const self = this;
 
     logger.info({
         method: "discover"
@@ -105,7 +101,7 @@ NestBridge.prototype.discover = function () {
  *  See {iotdb.bridge.Bridge#connect} for documentation.
  */
 NestBridge.prototype.connect = function (connectd) {
-    var self = this;
+    const self = this;
     if (!self.native) {
         return;
     }
@@ -138,7 +134,7 @@ NestBridge.prototype.connect = function (connectd) {
 };
 
 NestBridge.prototype._forget = function () {
-    var self = this;
+    const self = this;
     if (!self.native) {
         return;
     }
@@ -155,7 +151,7 @@ NestBridge.prototype._forget = function () {
  *  See {iotdb.bridge.Bridge#disconnect} for documentation.
  */
 NestBridge.prototype.disconnect = function () {
-    var self = this;
+    const self = this;
     if (!self.native || !self.native) {
         return;
     }
@@ -169,7 +165,7 @@ NestBridge.prototype.disconnect = function () {
  *  See {iotdb.bridge.Bridge#push} for documentation.
  */
 NestBridge.prototype.push = function (pushd, done) {
-    var self = this;
+    const self = this;
     if (!self.native) {
         done(new Error("not connected"));
         return;
@@ -192,7 +188,7 @@ NestBridge.prototype.push = function (pushd, done) {
  *  See {iotdb.bridge.Bridge#pull} for documentation.
  */
 NestBridge.prototype.pull = function () {
-    var self = this;
+    const self = this;
     if (!self.native) {
         return;
     }
@@ -204,7 +200,7 @@ NestBridge.prototype.pull = function () {
  *  See {iotdb.bridge.Bridge#meta} for documentation.
  */
 NestBridge.prototype.meta = function () {
-    var self = this;
+    const self = this;
     if (!self.native) {
         return;
     }
@@ -242,7 +238,7 @@ NestBridge.prototype.reachable = function () {
  *  See {iotdb.bridge.Bridge#configure} for documentation.
  */
 NestBridge.prototype.configure = function (app) {
-    var self = this;
+    const self = this;
 
     self.html_root = app.html_root || "/";
 
@@ -256,7 +252,7 @@ NestBridge.prototype.configure = function (app) {
 };
 
 NestBridge.prototype._configure_root = function (request, response) {
-    var self = this;
+    const self = this;
 
     var template = path.join(__dirname, "templates", "root.html");
     var templated = {
@@ -280,15 +276,15 @@ NestBridge.prototype._configure_root = function (request, response) {
 
 /* -- internals -- */
 
-var _firebase = null;
-var _pending_firebase = null;
-var _pending_dones = [];
+let _firebase = null;
+let _pending_firebase = null;
+let _pending_dones = [];
 
 
 /**
  */
 NestBridge.prototype._firebase = function (done) {
-    var self = this;
+    const self = this;
 
     if (_firebase) {
         return done(null, _firebase);
